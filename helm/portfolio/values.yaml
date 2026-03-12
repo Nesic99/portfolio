@@ -1,0 +1,72 @@
+# ── Global ────────────────────────────────────────────────────────────────────
+replicaCount: 1
+
+# ── Backend (Flask + Gunicorn) ─────────────────────────────────────────────────
+backend:
+  image:
+    repository: nesic/portfolio-backend
+    tag: "v1.0.0"
+    pullPolicy: IfNotPresent
+
+  service:
+    port: 5000
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+  env:
+    FLASK_ENV: production
+
+  healthcheck:
+    path: /api/about
+    initialDelaySeconds: 10
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 3
+
+# ── Frontend (Nginx) ───────────────────────────────────────────────────────────
+frontend:
+  image:
+    repository: nesic/portfolio-frontend
+    tag: "v1.0.0"
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+# ── Ingress ────────────────────────────────────────────────────────────────────
+ingress:
+  enabled: true
+  className: nginx
+  host: portfolio.example.com
+  tls:
+    enabled: false
+    secretName: portfolio-tls
+
+# ── Autoscaling ───────────────────────────────────────────────────────────────
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 70
+
+# ── Pod settings ──────────────────────────────────────────────────────────────
+imagePullSecrets: []
+podAnnotations: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

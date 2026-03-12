@@ -1,0 +1,15 @@
+apiVersion: v2
+name: portfolio
+description: Đorđe Nešić — Personal portfolio with Flask API backend and Nginx frontend
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+keywords:
+  - portfolio
+  - flask
+  - nginx
+
+maintainers:
+  - name: Đorđe Nešić
+    email: djordjenesic4@gmail.com
