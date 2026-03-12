@@ -29,20 +29,22 @@ jobs:
           cache: pip
 
       - name: Install dependencies
+        working-directory: backend
         run: |
-          pip install -r requirements.txt
-          pip install -r requirements-dev.txt
+          pip install -r ../requirements.txt
+          pip install -r ../requirements-dev.txt
 
       - name: Lint — flake8
+        working-directory: backend
         run: |
-          flake8 backend/app.py tests/ \
+          flake8 app.py ../tests/ \
             --max-line-length=120 \
             --ignore=E501,W503
 
       - name: Test — pytest
         run: |
           pytest \
-            --cov=app \
+            --cov \
             --cov-report=term-missing \
             --cov-fail-under=80 \
             -v
@@ -66,7 +68,6 @@ jobs:
 
       - name: Compile TypeScript (strict)
         run: npx tsc --noEmit
-        # --noEmit checks types without writing files
 
   # ── 3. Lint Helm chart ────────────────────────────────────────────────────
   lint-helm:
@@ -95,13 +96,12 @@ jobs:
   build-push:
     name: Build & Push Images
     runs-on: ubuntu-latest
-    # Only build on push to main — not on PRs
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: [lint-test-backend, lint-frontend, lint-helm]
 
     permissions:
       contents: read
-      packages: write   # needed to push to ghcr.io
+      packages: write
 
     steps:
       - name: Checkout
@@ -143,7 +143,6 @@ jobs:
           push: true
           tags: ${{ steps.meta-backend.outputs.tags }}
           labels: ${{ steps.meta-backend.outputs.labels }}
-          # Cache layers between runs using GitHub Actions cache
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -164,5 +163,4 @@ jobs:
           echo "| Image | Tags |" >> $GITHUB_STEP_SUMMARY
           echo "|-------|------|" >> $GITHUB_STEP_SUMMARY
           echo "| Backend  | \`${{ steps.meta-backend.outputs.tags }}\` |" >> $GITHUB_STEP_SUMMARY
-
           echo "| Frontend | \`${{ steps.meta-frontend.outputs.tags }}\` |" >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,6 @@
+[run]
+source = backend
+omit = backend/gunicorn.conf.py
+
+[report]
+show_missing = true
