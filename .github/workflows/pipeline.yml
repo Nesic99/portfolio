@@ -35,7 +35,7 @@ jobs:
 
       - name: Lint — flake8
         run: |
-          flake8 app.py tests/ \
+          flake8 backend/app.py tests/ \
             --max-line-length=120 \
             --ignore=E501,W503
 
@@ -164,4 +164,5 @@ jobs:
           echo "| Image | Tags |" >> $GITHUB_STEP_SUMMARY
           echo "|-------|------|" >> $GITHUB_STEP_SUMMARY
           echo "| Backend  | \`${{ steps.meta-backend.outputs.tags }}\` |" >> $GITHUB_STEP_SUMMARY
+
           echo "| Frontend | \`${{ steps.meta-frontend.outputs.tags }}\` |" >> $GITHUB_STEP_SUMMARY
