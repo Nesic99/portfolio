@@ -67,6 +67,7 @@ jobs:
         run: npm install -g typescript
 
       - name: Compile TypeScript (strict)
+        working-directory: ${{ github.workspace }}
         run: npx tsc --project tsconfig.json --noEmit
 
   # ── 3. Lint Helm chart ────────────────────────────────────────────────────
