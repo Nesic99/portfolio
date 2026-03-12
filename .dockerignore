@@ -1,16 +1,13 @@
-# Ignore everything by default, then allowlist what's needed
-*
-
-# Allow backend
-!backend/
-!backend/**
-!requirements.txt
-
-# Allow frontend
-!frontend/
-!frontend/**
-!static/
-!static/**
-
-# Exclude compiled JS (rebuilt in Docker)
-static/js/
+# Ignore noisy dirs that are never needed in any image
+node_modules
+.git
+.github
+helm
+tests
+__pycache__
+*.pyc
+.pytest_cache
+.coveragerc
+pytest.ini
+README.md
+docker-compose.yml
