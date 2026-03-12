@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ about.name }} — Portfolio</title>
+  <meta name="description" content="{{ about.bio[:120] }}..." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+  <!-- ── Navigation ──────────────────────────────────────────────────────────── -->
+  <nav class="nav">
+    <a href="#" class="nav__logo">{{ about.name.split()[0][0] }}{{ about.name.split()[1][0] }}<span>.</span></a>
+    <ul class="nav__links">
+      <li><a href="#about"      class="nav__link">About</a></li>
+      <li><a href="#experience" class="nav__link">Experience</a></li>
+      <li><a href="#projects"   class="nav__link">Projects</a></li>
+    </ul>
+    <a href="mailto:{{ about.email }}" class="btn btn--ghost" style="font-size:0.8rem;padding:10px 20px;">
+      Get in touch ↗
+    </a>
+  </nav>
+
+  <!-- ── Hero ────────────────────────────────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="hero__glow"></div>
+    <div class="hero__glow2"></div>
+
+    <p class="hero__eyebrow reveal">Available for new opportunities</p>
+
+    <h1 class="hero__name reveal">
+      {{ about.name.split()[0] }}<br>
+      <em>{{ about.name.split()[1] }}</em>
+    </h1>
+
+    <p class="hero__subtitle reveal">
+      <span class="hero__typewriter">Engineer.</span>
+    </p>
+
+    <p class="hero__bio reveal">{{ about.bio }}</p>
+
+    <div class="hero__cta reveal">
+      <a href="#projects" class="btn btn--primary">View my work →</a>
+      <a href="mailto:{{ about.email }}" class="btn btn--ghost">{{ about.email }}</a>
+    </div>
+
+    <div class="hero__scroll">Scroll down</div>
+  </section>
+
+  <!-- ── About ───────────────────────────────────────────────────────────────── -->
+  <section id="about">
+    <p class="section-label reveal" data-num="01">About</p>
+    <h2 class="section-title reveal">A bit about me</h2>
+
+    <div class="about__grid">
+      <div class="about__text reveal">
+        <p>
+          I'm a <strong>{{ about.title }}</strong> based in {{ about.location }}.
+          {{ about.bio }}
+        </p>
+        <p>
+          Homelabbing is something I enjoy doing.
+          When I'm not provisioning infrastructure and servers, you can find me playing pool, the guitar, and video games.
+        </p>
+
+        <div class="about__meta">
+          <div class="about__meta-item">
+            <span>Location</span>
+            <span>{{ about.location }}</span>
+          </div>
+          <div class="about__meta-item">
+            <span>Email</span>
+            <span>{{ about.email }}</span>
+          </div>
+          <div class="about__meta-item">
+            <span>GitHub</span>
+            <span>{{ about.github }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about__skills reveal">
+        <h3>Technologies I work with</h3>
+        <div class="skills-grid">
+          {% for skill in about.skills %}
+            <span class="skill-tag">{{ skill }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Experience ──────────────────────────────────────────────────────────── -->
+  <section id="experience">
+    <p class="section-label reveal" data-num="02">Experience</p>
+    <h2 class="section-title reveal">Where I've worked</h2>
+
+    <div class="exp-list">
+      {% for exp in experiences %}
+      <div class="exp-card reveal">
+        <div>
+          <div class="exp-company">{{ exp.company }}</div>
+          <div class="exp-period">{{ exp.period }}</div>
+        </div>
+        <div>
+          <div class="exp-role">{{ exp.role }}</div>
+          <div class="exp-desc">{{ exp.description }}</div>
+          <div class="exp-tags">
+            {% for tag in exp.tags %}
+              <span class="exp-tag">{{ tag }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="exp-num">0{{ loop.index }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ── Projects ────────────────────────────────────────────────────────────── -->
+  <section id="projects">
+    <p class="section-label reveal" data-num="03">Projects</p>
+    <h2 class="section-title reveal">Things I've built</h2>
+
+    <div class="projects-grid">
+      {% for project in projects %}
+      <div class="project-card reveal">
+        <a href="{{ project.url }}" class="project-link" aria-label="{{ project.title }}"></a>
+        <div class="project-header">
+          <h3 class="project-title">{{ project.title }}</h3>
+          <span class="project-status">{{ project.status }}</span>
+        </div>
+        <p class="project-desc">{{ project.description }}</p>
+        <div class="project-footer">
+          <div class="project-tech">
+            {% for t in project.tech %}
+              <span>{{ t }}</span>
+            {% endfor %}
+          </div>
+          <div class="project-stars">{{ project.stars }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ── Footer ──────────────────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer__left">{{ about.name.split()[0][0] }}{{ about.name.split()[1][0] }}<span>.</span></div>
+    <div class="footer__right">Designed &amp; built with Flask + TypeScript · {{ about.name }}</div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/portfolio.js') }}"></script>
+</body>
+</html>
