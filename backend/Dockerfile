@@ -9,13 +9,13 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy app and gunicorn config
-COPY app.py .
-COPY gunicorn.conf.py .
+# Build context is repo root, so paths are relative to there
+COPY backend/app.py .
+COPY backend/gunicorn.conf.py .
 
 # Switch to non-root user
 USER appuser
 
 EXPOSE 5000
 
-# Use gunicorn instead of Flask dev server
 CMD ["gunicorn", "--config", "gunicorn.conf.py", "app:app"]
