@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+  <meta name="description" content="Personal portfolio" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- ── Navigation ──────────────────────────────────────────────────────────── -->
+  <nav class="nav">
+    <a href="#" class="nav__logo" id="nav-logo">--<span>.</span></a>
+    <ul class="nav__links">
+      <li><a href="#about"      class="nav__link">About</a></li>
+      <li><a href="#experience" class="nav__link">Experience</a></li>
+      <li><a href="#projects"   class="nav__link">Projects</a></li>
+    </ul>
+    <a href="#" class="btn btn--ghost" id="nav-email" style="font-size:0.8rem;padding:10px 20px;">
+      Get in touch ↗
+    </a>
+  </nav>
+
+  <!-- ── Hero ────────────────────────────────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="hero__glow"></div>
+    <div class="hero__glow2"></div>
+
+    <p class="hero__eyebrow reveal">Available for new opportunities</p>
+
+    <h1 class="hero__name reveal">
+      <span id="hero-firstname">--</span><br>
+      <em id="hero-lastname">--</em>
+    </h1>
+
+    <p class="hero__subtitle reveal">
+      <span class="hero__typewriter">Engineer.</span>
+    </p>
+
+    <p class="hero__bio reveal" id="hero-bio"></p>
+
+    <div class="hero__cta reveal">
+      <a href="#projects" class="btn btn--primary">View my work →</a>
+      <a href="#" class="btn btn--ghost" id="hero-email"></a>
+    </div>
+
+    <div class="hero__scroll">Scroll down</div>
+  </section>
+
+  <!-- ── About ───────────────────────────────────────────────────────────────── -->
+  <section id="about">
+    <p class="section-label reveal" data-num="01">About</p>
+    <h2 class="section-title reveal">A bit about me</h2>
+
+    <div class="about__grid">
+      <div class="about__text reveal">
+        <p id="about-intro"></p>
+        <p>
+          When I'm not shipping features, you'll find me contributing to open source,
+          writing about distributed systems on my blog, or searching for the best tacos in the city.
+        </p>
+        <div class="about__meta">
+          <div class="about__meta-item">
+            <span>Location</span>
+            <span id="about-location"></span>
+          </div>
+          <div class="about__meta-item">
+            <span>Email</span>
+            <span id="about-email"></span>
+          </div>
+          <div class="about__meta-item">
+            <span>GitHub</span>
+            <span id="about-github"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about__skills reveal">
+        <h3>Technologies I work with</h3>
+        <div class="skills-grid" id="skills-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Experience ──────────────────────────────────────────────────────────── -->
+  <section id="experience">
+    <p class="section-label reveal" data-num="02">Experience</p>
+    <h2 class="section-title reveal">Where I've worked</h2>
+    <div class="exp-list" id="exp-list"></div>
+  </section>
+
+  <!-- ── Projects ────────────────────────────────────────────────────────────── -->
+  <section id="projects">
+    <p class="section-label reveal" data-num="03">Projects</p>
+    <h2 class="section-title reveal">Things I've built</h2>
+    <div class="projects-grid" id="projects-grid"></div>
+  </section>
+
+  <!-- ── Footer ──────────────────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer__left" id="footer-initials">--<span>.</span></div>
+    <div class="footer__right" id="footer-name">Designed &amp; built with Flask + TypeScript</div>
+  </footer>
+
+  <script src="/static/js/portfolio.js"></script>
+  <script>
+    const API = "";  // same origin — nginx proxies /api/ to Flask
+
+    function initials(name) {
+      const parts = name.trim().split(/\s+/);
+      return parts.length >= 2 ? parts[0][0] + parts[1][0] : parts[0][0];
+    }
+
+    async function loadAbout() {
+      const data = await fetch(`${API}/api/about`).then(r => r.json());
+      const [first, ...rest] = data.name.trim().split(/\s+/);
+      const last = rest.join(" ");
+      const ini = initials(data.name);
+
+      document.title = `${data.name} — Portfolio`;
+      document.querySelector("meta[name='description']").setAttribute("content", data.bio.slice(0, 120) + "...");
+
+      document.getElementById("nav-logo").innerHTML = `${ini}<span>.</span>`;
+      document.getElementById("nav-email").href = `mailto:${data.email}`;
+
+      document.getElementById("hero-firstname").textContent = first;
+      document.getElementById("hero-lastname").textContent = last;
+      document.getElementById("hero-bio").textContent = data.bio;
+      document.getElementById("hero-email").textContent = data.email;
+      document.getElementById("hero-email").href = `mailto:${data.email}`;
+
+      document.getElementById("about-intro").innerHTML =
+        `I'm a <strong>${data.title}</strong> based in ${data.location}. ${data.bio}`;
+      document.getElementById("about-location").textContent = data.location;
+      document.getElementById("about-email").textContent = data.email;
+      const ghEl = document.getElementById("about-github"); ghEl.innerHTML = `<a href="${data.github}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;">${data.github.replace("https://","")}</a>`;
+
+      document.getElementById("skills-grid").innerHTML = data.skills
+        .map(s => `<span class="skill-tag">${s}</span>`)
+        .join("");
+
+      document.getElementById("footer-initials").innerHTML = `${ini}<span>.</span>`;
+      document.getElementById("footer-name").innerHTML =
+        `Designed &amp; built with Flask + TypeScript &middot; ${data.name}`;
+    }
+
+    async function loadExperiences() {
+      const res = await fetch(`${API}/api/experiences`);
+      if (!res.ok) { console.error("Failed to fetch experiences:", res.status); return; }
+      const data = await res.json();
+      document.getElementById("exp-list").innerHTML = data.map((exp, i) => `
+        <div class="exp-card reveal">
+          <div>
+            <div class="exp-company">${exp.company}</div>
+            <div class="exp-period">${exp.period}</div>
+          </div>
+          <div>
+            <div class="exp-role">${exp.role}</div>
+            <div class="exp-desc">${exp.description}</div>
+            <div class="exp-tags">
+              ${exp.tags.map(t => `<span class="exp-tag">${t}</span>`).join("")}
+            </div>
+          </div>
+          <div class="exp-num">0${i + 1}</div>
+        </div>
+      `).join("");
+    }
+
+    async function loadProjects() {
+      const res = await fetch(`${API}/api/projects`);
+      if (!res.ok) { console.error("Failed to fetch projects:", res.status); return; }
+      const data = await res.json();
+      document.getElementById("projects-grid").innerHTML = data.map(p => `
+        <div class="project-card reveal">
+          <a href="${p.url}" class="project-link" aria-label="${p.title}"></a>
+          <div class="project-header">
+            <h3 class="project-title">${p.title}</h3>
+            <span class="project-status">${p.status}</span>
+          </div>
+          <p class="project-desc">${p.description}</p>
+          <div class="project-footer">
+            <div class="project-tech">
+              ${p.tech.map(t => `<span>${t}</span>`).join("")}
+            </div>
+            <div class="project-stars">${p.stars}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    // Load all sections, then reveal dynamically injected cards
+    Promise.all([loadAbout(), loadExperiences(), loadProjects()]).then(() => {
+      // Directly mark dynamic cards as revealed — they're already in viewport
+      // The IntersectionObserver won't fire reliably for already-visible injected elements
+      document.querySelectorAll("#exp-list .reveal, #projects-grid .reveal").forEach((el, i) => {
+        setTimeout(() => el.classList.add("revealed"), i * 80);
+      });
+      if (window.__initSkillHover) window.__initSkillHover();
+      if (window.__initCardTilt) window.__initCardTilt();
+    }).catch(err => console.error("Failed to load portfolio data:", err));
+  </script>
+</body>
+</html>
