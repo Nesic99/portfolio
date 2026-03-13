@@ -72,7 +72,7 @@ jobs:
           if [ -z "$(find static/ts -name '*.ts' 2>/dev/null)" ]; then
             echo "No TypeScript files found in static/ts/ — skipping."
           else
-            npx tsc --project tsconfig.json --noEmit
+            npx tsc --project tsconfig.json --noEmit --module ES2015
           fi
 
   # ── 3. Lint Helm chart ────────────────────────────────────────────────────

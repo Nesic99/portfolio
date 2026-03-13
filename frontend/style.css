@@ -461,6 +461,13 @@ section { padding: 120px 10vw; position: relative; }
   padding: 3px 8px;
   border-radius: 4px;
 }
+.project-stars {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  display: flex; align-items: center; gap: 5px;
+}
+.project-stars::before { content: '★'; color: #f5c518; }
 .project-link {
   position: absolute; inset: 0;
   z-index: 1;
