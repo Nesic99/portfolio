@@ -160,7 +160,6 @@ function initCursor(): void {
 
   document.addEventListener("mousemove", (e: MouseEvent) => {
     dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-    dot.classList.add("cursor-dot--visible");
   });
 
   document.querySelectorAll<HTMLElement>("a, button, .project-card, .exp-card").forEach((el) => {
