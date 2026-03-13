@@ -157,6 +157,7 @@ function initCursor(): void {
   const dot = document.createElement("div");
   dot.className = "cursor-dot";
   document.body.appendChild(dot);
+  document.body.style.cursor = "none";
 
   document.addEventListener("mousemove", (e: MouseEvent) => {
     dot.style.left = `${e.clientX}px`;
