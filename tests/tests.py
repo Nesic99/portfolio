@@ -86,7 +86,7 @@ def test_projects_is_list(client):
 def test_projects_required_fields(client):
     data = client.get("/api/projects").get_json()
     for project in data:
-        for field in ("title", "description", "tech", "url", "stars", "status"):
+        for field in ("title", "description", "tech", "url"):
             assert field in project, f"Missing field '{field}' in project: {project}"
 
 

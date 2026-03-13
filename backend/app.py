@@ -71,12 +71,10 @@ EXPERIENCES = [
 
 PROJECTS = [
     {
-        "title": "RandomSteamGame",
-        "description": "An application that suggests what Steam game from your library you should play next.",
-        "tech": ["TypeScript", "SQLite", "LLM"],
-        "url": "https://github.com/Nesic99/RandomSteamGame",
-        "stars": "0",
-        "status": "Open Source",
+        "title": "SteamRoulette",
+        "description": "This project came about because I have a lot of games in my Steam library and I wanted to avoid decision fatigue.",
+        "tech": ["TypeScript", "Python", "CSS"],
+        "url": "https://github.com/Nesic99/steamroulette",
     },
 ]
 
