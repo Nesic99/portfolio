@@ -14,6 +14,7 @@ RUN rm -rf /usr/share/nginx/html/*
 
 COPY --from=build /app/static/js  /usr/share/nginx/html/static/js
 COPY frontend/style.css           /usr/share/nginx/html/static/css/style.css
+COPY frontend/favicon.svg         /usr/share/nginx/html/static/favicon.svg
 COPY frontend/index.html          /usr/share/nginx/html/index.html
 COPY frontend/nginx.conf          /etc/nginx/conf.d/default.conf
 
