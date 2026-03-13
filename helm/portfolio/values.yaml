@@ -1,11 +1,13 @@
 # ── Global ────────────────────────────────────────────────────────────────────
 replicaCount: 1
 
+imagePullSecrets:
+  - name: ghcr-secret
 # ── Backend (Flask + Gunicorn) ─────────────────────────────────────────────────
 backend:
   image:
-    repository: nesic/portfolio-backend
-    tag: "v1.0.0"
+    repository: ghcr.io/nesic/portfolio-backend
+    tag: latest
     pullPolicy: IfNotPresent
 
   service:
@@ -32,8 +34,8 @@ backend:
 # ── Frontend (Nginx) ───────────────────────────────────────────────────────────
 frontend:
   image:
-    repository: nesic/portfolio-frontend
-    tag: "v1.0.0"
+    repository: ghcr.io/nesic/portfolio-frontend
+    tag: latest
     pullPolicy: IfNotPresent
 
   service:
@@ -51,7 +53,7 @@ frontend:
 # ── Ingress ────────────────────────────────────────────────────────────────────
 ingress:
   enabled: true
-  className: nginx
+  className: traefik
   host: portfolio.example.com
   tls:
     enabled: false
