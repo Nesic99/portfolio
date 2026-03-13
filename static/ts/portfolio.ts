@@ -159,7 +159,8 @@ function initCursor(): void {
   document.body.appendChild(dot);
 
   document.addEventListener("mousemove", (e: MouseEvent) => {
-    dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    dot.style.left = `${e.clientX}px`;
+    dot.style.top  = `${e.clientY}px`;
   });
 
   document.querySelectorAll<HTMLElement>("a, button, .project-card, .exp-card").forEach((el) => {

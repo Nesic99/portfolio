@@ -1,20 +1,16 @@
 # ── Global ────────────────────────────────────────────────────────────────────
 replicaCount: 1
 
-imagePullSecrets:
-  - name: ghcr-secret
-# ── Backend (Flask + Gunicorn) ─────────────────────────────────────────────────
+# ── Backend (Flask + Gunicorn) ────────────────────────────────────────────────
 backend:
   image:
     repository: ghcr.io/nesic99/portfolio-backend
-    tag: 'sha-605e918'
-    pullPolicy: IfNotPresent
+    tag: "latest"
+    pullPolicy: Always
 
   service:
-    type: NodePort
-    port: 80
-    nodePort: 30080
-    
+    port: 5000
+
   resources:
     requests:
       cpu: 100m
@@ -33,12 +29,12 @@ backend:
     timeoutSeconds: 5
     failureThreshold: 3
 
-# ── Frontend (Nginx) ───────────────────────────────────────────────────────────
+# ── Frontend (Nginx) ──────────────────────────────────────────────────────────
 frontend:
   image:
     repository: ghcr.io/nesic99/portfolio-frontend
-    tag: 'sha-605e918'
-    pullPolicy: IfNotPresent
+    tag: "latest"
+    pullPolicy: Always
 
   service:
     type: ClusterIP
@@ -52,11 +48,11 @@ frontend:
       cpu: 200m
       memory: 128Mi
 
-# ── Ingress ────────────────────────────────────────────────────────────────────
+# ── Ingress ───────────────────────────────────────────────────────────────────
 ingress:
-  enabled: true
+  enabled: false
   className: traefik
-  host: portfolio.example.com
+  host: nesicdjordje.com
   tls:
     enabled: false
     secretName: portfolio-tls
@@ -69,7 +65,8 @@ autoscaling:
   targetCPUUtilizationPercentage: 70
 
 # ── Pod settings ──────────────────────────────────────────────────────────────
-imagePullSecrets: []
+imagePullSecrets:
+  - name: ghcr-secret
 podAnnotations: {}
 nodeSelector: {}
 tolerations: []
