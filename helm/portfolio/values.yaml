@@ -6,13 +6,15 @@ imagePullSecrets:
 # ── Backend (Flask + Gunicorn) ─────────────────────────────────────────────────
 backend:
   image:
-    repository: ghcr.io/nesic/portfolio-backend
-    tag: latest
+    repository: ghcr.io/nesic99/portfolio-backend
+    tag: 'sha-605e918'
     pullPolicy: IfNotPresent
 
   service:
-    port: 5000
-
+    type: NodePort
+    port: 80
+    nodePort: 30080
+    
   resources:
     requests:
       cpu: 100m
@@ -34,8 +36,8 @@ backend:
 # ── Frontend (Nginx) ───────────────────────────────────────────────────────────
 frontend:
   image:
-    repository: ghcr.io/nesic/portfolio-frontend
-    tag: latest
+    repository: ghcr.io/nesic99/portfolio-frontend
+    tag: 'sha-605e918'
     pullPolicy: IfNotPresent
 
   service:

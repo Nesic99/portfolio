@@ -1,12 +1,10 @@
 // portfolio.ts — compiled to static/js/portfolio.js
 
 // ── Extend window with custom properties ─────────────────────────────────────
-declare global {
-  interface Window {
-    __revealObserver: IntersectionObserver | undefined;
-    __initSkillHover: (() => void) | undefined;
-    __initCardTilt: (() => void) | undefined;
-  }
+interface Window {
+  __revealObserver: IntersectionObserver | undefined;
+  __initSkillHover: (() => void) | undefined;
+  __initCardTilt: (() => void) | undefined;
 }
 
 // ── Smooth scroll navigation ──────────────────────────────────────────────────
@@ -181,5 +179,3 @@ document.addEventListener("DOMContentLoaded", () => {
   initCursor();
   updateActiveLink();
 });
-
-export {};
