@@ -13,8 +13,8 @@ FROM nginx:1.27-alpine-slim
 RUN rm -rf /usr/share/nginx/html/*
 
 COPY --from=build /app/static/js  /usr/share/nginx/html/static/js
-COPY frontend/style.css           /usr/share/nginx/html/static/css/style.css
-COPY frontend/index.html          /usr/share/nginx/html/index.html
+COPY static/style.css           /usr/share/nginx/html/static/css/style.css
+COPY static/index.html          /usr/share/nginx/html/index.html
 COPY frontend/nginx.conf          /etc/nginx/conf.d/default.conf
 
 RUN chown -R nginx:nginx /usr/share/nginx/html \
