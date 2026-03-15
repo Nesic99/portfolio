@@ -152,26 +152,6 @@ function initCardTilt(): void {
   });
 }
 
-<<<<<<< HEAD
-=======
-// ── Cursor dot ────────────────────────────────────────────────────────────────
-function initCursor(): void {
-  const dot = document.createElement("div");
-  dot.className = "cursor-dot";
-  document.body.appendChild(dot);
-
-  document.addEventListener("mousemove", (e: MouseEvent) => {
-    dot.style.left = `${e.clientX}px`;
-    dot.style.top  = `${e.clientY}px`;
-  });
-
-  document.querySelectorAll<HTMLElement>("a, button, .project-card, .exp-card").forEach((el) => {
-    el.addEventListener("mouseenter", () => dot.classList.add("cursor-dot--large"));
-    el.addEventListener("mouseleave", () => dot.classList.remove("cursor-dot--large"));
-  });
-}
->>>>>>> parent of a0000a7 (cursor on auto for now)
-
 // ── Boot ──────────────────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("js-loaded");
