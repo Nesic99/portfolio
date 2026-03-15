@@ -472,14 +472,14 @@ footer {
 
 /* ── Deployment Section ──────────────────────────────────────────────────────── */
 #deployment { }
-
+ 
 .deploy__intro {
   margin-bottom: 64px;
   color: var(--text-muted);
   font-size: 1.05rem;
   line-height: 1.8;
 }
-
+ 
 .deploy__intro code {
   font-family: var(--font-mono);
   font-size: 0.9em;
@@ -488,14 +488,14 @@ footer {
   padding: 2px 7px;
   border-radius: 4px;
 }
-
+ 
 .deploy__graph {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
 }
-
+ 
 .deploy__row {
   display: flex;
   align-items: center;
@@ -503,7 +503,7 @@ footer {
   flex-wrap: wrap;
   justify-content: center;
 }
-
+ 
 .deploy__node {
   display: flex;
   flex-direction: column;
@@ -517,55 +517,55 @@ footer {
   text-align: center;
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
-
+ 
 .deploy__node:hover {
   transform: translateY(-3px);
 }
-
+ 
 .deploy__node--code  { border-color: rgba(200,255,0,0.3); }
 .deploy__node--ci    { border-color: rgba(100,180,255,0.3); }
 .deploy__node--registry { border-color: rgba(180,100,255,0.3); }
 .deploy__node--nginx { border-color: rgba(255,160,50,0.3); }
 .deploy__node--k3s   { border-color: rgba(100,220,180,0.3); }
 .deploy__node--app   { border-color: rgba(200,255,0,0.3); }
-
+ 
 .deploy__node--code:hover  { border-color: rgba(200,255,0,0.7); }
 .deploy__node--ci:hover    { border-color: rgba(100,180,255,0.7); }
 .deploy__node--registry:hover { border-color: rgba(180,100,255,0.7); }
 .deploy__node--nginx:hover { border-color: rgba(255,160,50,0.7); }
 .deploy__node--k3s:hover   { border-color: rgba(100,220,180,0.7); }
 .deploy__node--app:hover   { border-color: rgba(200,255,0,0.7); }
-
+ 
 .deploy__node-icon {
   font-size: 1.6rem;
 }
-
+ 
 .deploy__node-label {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.9rem;
   color: var(--white);
 }
-
+ 
 .deploy__node-sub {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   color: var(--text-muted);
   letter-spacing: 0.03em;
 }
-
+ 
 .deploy__arrow {
   font-size: 1.4rem;
   color: var(--text-muted);
   opacity: 0.5;
 }
-
+ 
 .deploy__down-arrow {
   font-size: 1.6rem;
   color: var(--text-muted);
   opacity: 0.5;
 }
-
+ 
 .deploy__stack {
   display: flex;
   flex-wrap: wrap;
@@ -573,7 +573,7 @@ footer {
   margin-top: 24px;
   justify-content: center;
 }
-
+ 
 .deploy__pill {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -584,12 +584,12 @@ footer {
   letter-spacing: 0.04em;
   transition: border-color 0.2s, color 0.2s;
 }
-
+ 
 .deploy__pill:hover {
   border-color: var(--accent);
   color: var(--accent);
 }
-
+ 
 @media (max-width: 600px) {
   .deploy__row { flex-direction: column; }
   .deploy__arrow { transform: rotate(90deg); }
