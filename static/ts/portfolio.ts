@@ -86,7 +86,7 @@ function initTypewriter(): void {
   const el = document.querySelector<HTMLElement>(".hero__typewriter");
   if (!el) return;
 
-  const words = ["DevOps Engineer."];
+  const words = ["DevSysOps Engineer."];
   let wordIdx = 0;
   let charIdx = 0;
   let deleting = false;
@@ -152,23 +152,6 @@ function initCardTilt(): void {
   });
 }
 
-// ── Cursor dot ────────────────────────────────────────────────────────────────
-function initCursor(): void {
-  const dot = document.createElement("div");
-  dot.className = "cursor-dot";
-  document.body.appendChild(dot);
-  document.body.style.cursor = "none";
-
-  document.addEventListener("mousemove", (e: MouseEvent) => {
-    dot.style.left = `${e.clientX}px`;
-    dot.style.top  = `${e.clientY}px`;
-  });
-
-  document.querySelectorAll<HTMLElement>("a, button, .project-card, .exp-card").forEach((el) => {
-    el.addEventListener("mouseenter", () => dot.classList.add("cursor-dot--large"));
-    el.addEventListener("mouseleave", () => dot.classList.remove("cursor-dot--large"));
-  });
-}
 
 // ── Boot ──────────────────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
@@ -178,6 +161,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initTypewriter();
   initSkillHover();
   initCardTilt();
-  initCursor();
   updateActiveLink();
 });

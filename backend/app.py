@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 ABOUT = {
     "name": "Đorđe Nešić",
-    "title": "DevOps Engineer",
+    "title": "DevSysOps Engineer",
     "bio": (
         "I enjoy helping bring interesting and practical ideas and projects to life. "
         "Actively looking for ways to further improve myself."

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Đorđe Nešić</title>
-  <meta name="description" content="Đorđe Nešić — DevOps Engineer" />
+  <meta name="description" content="Đorđe Nešić — DevSysOps Engineer" />
   <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
 
   <!-- Fonts -->
@@ -20,6 +20,7 @@
     <a href="#" class="nav__logo" id="nav-logo">--<span>.</span></a>
     <ul class="nav__links">
       <li><a href="#about"      class="nav__link">About</a></li>
+      <li><a href="#deployment" class="nav__link">Infrastructure</a></li>
       <li><a href="#experience" class="nav__link">Experience</a></li>
       <li><a href="#projects"   class="nav__link">Projects</a></li>
     </ul>
@@ -41,7 +42,7 @@
     </h1>
 
     <p class="hero__subtitle reveal">
-      <span class="hero__typewriter">DevOps Engineer.</span>
+      <span class="hero__typewriter">DevSysOps Engineer.</span>
     </p>
 
     <p class="hero__bio reveal" id="hero-bio"></p>
@@ -63,8 +64,8 @@
       <div class="about__text reveal">
         <p id="about-intro"></p>
         <p>
-          Homelabbing is something I enjoy doing.
-          When I'm not provisioning infrastructure and servers, you can find me playing pool, the guitar, and video games.
+        "I enjoy helping bring interesting and practical ideas and projects to life. "
+        "Actively looking for ways to further improve myself."
         </p>
         <div class="about__meta">
           <div class="about__meta-item">
@@ -89,16 +90,85 @@
     </div>
   </section>
 
+ <!-- ── Deployment ──────────────────────────────────────────────────────────── -->
+  <section id="deployment">
+    <p class="section-label reveal" data-num="02">Infrastructure</p>
+    <h2 class="section-title reveal">How this site is deployed</h2>
+
+    <div class="deploy__intro reveal">
+      <p>This portfolio is fully containerized and deployed on a Hetzner server running k3s. Every push to <code>main</code> triggers a GitHub Actions pipeline that lints, tests, builds, and pushes Docker images to GHCR — which are then rolled out to the cluster.</p>
+    </div>
+
+    <div class="deploy__graph reveal">
+
+      <!-- Row 1: Dev -->
+      <div class="deploy__row">
+        <div class="deploy__node deploy__node--code">
+          <div class="deploy__node-icon">⌨</div>
+          <div class="deploy__node-label">Code Push</div>
+          <div class="deploy__node-sub">git push → main</div>
+        </div>
+        <div class="deploy__arrow">→</div>
+        <div class="deploy__node deploy__node--ci">
+          <div class="deploy__node-icon">⚙</div>
+          <div class="deploy__node-label">GitHub Actions</div>
+          <div class="deploy__node-sub">lint · test · build</div>
+        </div>
+        <div class="deploy__arrow">→</div>
+        <div class="deploy__node deploy__node--registry">
+          <div class="deploy__node-icon">📦</div>
+          <div class="deploy__node-label">GHCR</div>
+          <div class="deploy__node-sub">Docker images</div>
+        </div>
+      </div>
+
+      <div class="deploy__down-arrow">↓</div>
+
+      <!-- Row 2: Infra -->
+      <div class="deploy__row">
+        <div class="deploy__node deploy__node--nginx">
+          <div class="deploy__node-icon">🌐</div>
+          <div class="deploy__node-label">Nginx</div>
+          <div class="deploy__node-sub">TLS · reverse proxy</div>
+        </div>
+        <div class="deploy__arrow">→</div>
+        <div class="deploy__node deploy__node--k3s">
+          <div class="deploy__node-icon">☸</div>
+          <div class="deploy__node-label">k3s Cluster</div>
+          <div class="deploy__node-sub">Helm · port-forward</div>
+        </div>
+        <div class="deploy__arrow">→</div>
+        <div class="deploy__node deploy__node--app">
+          <div class="deploy__node-icon">🚀</div>
+          <div class="deploy__node-label">Portfolio</div>
+          <div class="deploy__node-sub">Flask · Nginx</div>
+        </div>
+      </div>
+
+      <!-- Stack pills -->
+      <div class="deploy__stack reveal">
+        <span class="deploy__pill">Docker</span>
+        <span class="deploy__pill">Kubernetes</span>
+        <span class="deploy__pill">Helm</span>
+        <span class="deploy__pill">GitHub Actions</span>
+        <span class="deploy__pill">Gunicorn</span>
+        <span class="deploy__pill">Nginx</span>
+        <span class="deploy__pill">Let's Encrypt</span>
+        <span class="deploy__pill">GHCR</span>
+      </div>
+    </div>
+  </section>
+
   <!-- ── Experience ──────────────────────────────────────────────────────────── -->
   <section id="experience">
-    <p class="section-label reveal" data-num="02">Experience</p>
+    <p class="section-label reveal" data-num="03">Experience</p>
     <h2 class="section-title reveal">Where I've worked</h2>
     <div class="exp-list" id="exp-list"></div>
   </section>
 
   <!-- ── Projects ────────────────────────────────────────────────────────────── -->
   <section id="projects">
-    <p class="section-label reveal" data-num="03">Projects</p>
+    <p class="section-label reveal" data-num="04">Projects</p>
     <h2 class="section-title reveal">Things I've built</h2>
     <div class="projects-grid" id="projects-grid"></div>
   </section>
@@ -182,12 +252,14 @@
           <a href="${p.url}" class="project-link" aria-label="${p.title}"></a>
           <div class="project-header">
             <h3 class="project-title">${p.title}</h3>
+            <span class="project-status">${p.status}</span>
           </div>
           <p class="project-desc">${p.description}</p>
           <div class="project-footer">
             <div class="project-tech">
               ${p.tech.map(t => `<span>${t}</span>`).join("")}
             </div>
+            <div class="project-stars">${p.stars}</div>
           </div>
         </div>
       `).join("");
