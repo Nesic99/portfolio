@@ -29,6 +29,10 @@ body {
   font-size: 16px;
   line-height: 1.7;
   overflow-x: hidden;
+<<<<<<< HEAD
+=======
+  cursor: none;
+>>>>>>> parent of a0000a7 (cursor on auto for now)
 }
 
 
