@@ -86,7 +86,7 @@ function initTypewriter(): void {
   const el = document.querySelector<HTMLElement>(".hero__typewriter");
   if (!el) return;
 
-  const words = ["DevSysOps Engineer."];
+  const words = ["DevOps Engineer."];
   let wordIdx = 0;
   let charIdx = 0;
   let deleting = false;
