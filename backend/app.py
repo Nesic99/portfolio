@@ -75,6 +75,7 @@ PROJECTS = [
         "description": "This project came about because I have a lot of games in my Steam library and I wanted to avoid decision fatigue.",
         "tech": ["TypeScript", "Python", "CSS"],
         "url": "https://github.com/Nesic99/steamroulette",
+        "demo_url": "https://steam-roulette.nesicdjordje.com",
     },
 ]
 

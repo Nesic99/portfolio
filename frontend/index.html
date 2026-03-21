@@ -245,7 +245,6 @@
       const data = await res.json();
       document.getElementById("projects-grid").innerHTML = data.map(p => `
         <div class="project-card reveal">
-          <a href="${p.url}" class="project-link" aria-label="${p.title}"></a>
           <div class="project-header">
             <h3 class="project-title">${p.title}</h3>
           </div>
@@ -253,6 +252,10 @@
           <div class="project-footer">
             <div class="project-tech">
               ${p.tech.map(t => `<span>${t}</span>`).join("")}
+            </div>
+            <div class="project-links">
+              ${p.demo_url ? `<a href="${p.demo_url}" target="_blank" rel="noopener noreferrer" class="project-btn project-btn--demo">Live ↗</a>` : ""}
+              ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener noreferrer" class="project-btn project-btn--github">GitHub ↗</a>` : ""}
             </div>
           </div>
         </div>
