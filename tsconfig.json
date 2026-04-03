@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "module": "None",
+    "module": "ES2020",
     "strict": true,
     "outDir": "static/js",
     "rootDir": "static/ts",
